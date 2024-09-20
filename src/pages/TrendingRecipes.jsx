@@ -26,8 +26,8 @@ const TrendingRecipes = () => {
       };
 
    // Navigate to individual recipe page
-   const openRecipePage = (id) => {
-    navigate(`/recipe/${id}`);
+   const openRecipePage = (recipe) => {
+    navigate('/recipeinfo', { state: { recipe } });
   };
   // Sample data for the carousel
   const recipes = [
@@ -36,30 +36,53 @@ const TrendingRecipes = () => {
       name: "Spaghetti Carbonara",
       image: "https://via.placeholder.com/150",
       info: "A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.",
+      ingredients: ["ingcf1", "ingcervc2", "increg3", "inghwdgew", "hdegfcveh"],
+      instructions: [
+        "Boil spaghetti: Bring a large pot of salted water to a boil. Cook spaghetti for 8-10 minutes, then drain and set aside.",
+        "Cook beef: Heat olive oil in a pan. Add chopped onion and garlic, cook until soft. Add ground beef, cook until browned, then season with salt and pepper.",
+        "Mix with sauce: Stir in tomato paste, canned tomatoes, oregano, and basil. Simmer for 10-15 minutes. Mix cooked spaghetti with the sauce and serve with Parmesan cheese."
+      ],
+      recipe_nutrients: {
+        "calories": "650",
+        "protein": "35g"
+      },
+
     },
     {
       id: 2,
       name: "Chicken Curry",
       image: "https://via.placeholder.com/150",
       info: "A flavorful dish made with a blend of spices and tender chicken pieces.",
+      ingredients: ["ing1", "ing2", "ing3", "ing4"],
+      instructions: ["step1", "step2", "step3"],
     },
     {
       id: 3,
       name: "Caesar Salad",
       image: "https://via.placeholder.com/150",
       info: "A fresh salad with romaine lettuce, croutons, and Caesar dressing.",
+      iingredients: ["ing1", "ing2", "ing3", "ing4"],
+      instructions: ["step1", "step2", "step3"],
     },
     {
       id: 4,
       name: "Tacos",
       image: "https://via.placeholder.com/150",
       info: "Mexican dish consisting of folded or rolled tortillas filled with various mixtures.",
+      ingredients: ["ing1", "ing2", "ing3", "ing4"],
+      instructions: ["step1", "step2", "step3"],
     },
     {
       id: 5,
       name: "Pad Thai",
       image: "https://via.placeholder.com/150",
       info: "A popular stir-fried rice noodle dish from Thailand.",
+      ingredients: ["ing1", "ing2", "ing3", "ing4"],
+      instructions: [
+        "Boil spaghetti: Bring a large pot of salted water to a boil. Cook spaghetti for 8-10 minutes, then drain and set aside.",
+        "Cook beef: Heat olive oil in a pan. Add chopped onion and garlic, cook until soft. Add ground beef, cook until browned, then season with salt and pepper.",
+        "Mix with sauce: Stir in tomato paste, canned tomatoes, oregano, and basil. Simmer for 10-15 minutes. Mix cooked spaghetti with the sauce and serve with Parmesan cheese."
+      ],
     },
     // Add more dishes as needed
   ];
@@ -75,7 +98,7 @@ const TrendingRecipes = () => {
             <div
               key={index}
               className="min-w-[200px] mx-8 mb-4 flex-shrink-0 bg-white border border-gray-200 rounded-lg p-4 shadow-md"
-              onClick={() => openRecipePage(recipe.id)} 
+              onClick={() => openRecipePage(recipe)} 
             >
               <img
                 src={recipe.image}
