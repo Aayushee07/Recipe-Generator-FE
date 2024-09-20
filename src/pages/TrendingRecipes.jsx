@@ -2,11 +2,14 @@ import React,{useState} from "react";
 import "../styles/login.css"; // You can add specific styles for the carousel here
 import { useNavigate } from "react-router-dom";
 
+import { FaArrowRight } from "react-icons/fa"; // Import heart and arrow icons
+
 const TrendingRecipes = () => {
 
      // State to track liked recipes
   const [likedRecipes, setLikedRecipes] = useState([]);
   const navigate = useNavigate();
+
 
   // Toggle like status
   const toggleLike = (id) => {
@@ -16,6 +19,11 @@ const TrendingRecipes = () => {
       setLikedRecipes([...likedRecipes, id]);
     }
   };
+
+    // Function to handle skip button
+    const handleSkip = () => {
+        navigate("/home"); // Navigate to the home page or another desired route
+      };
 
    // Navigate to individual recipe page
    const openRecipePage = (id) => {
@@ -59,7 +67,7 @@ const TrendingRecipes = () => {
   return (
     <div className="flex flex-col items-center w-full">
       <div className="mt-12 sm:mt-6 mb-8">
-        <h1 className="text-[#2E0052] text-3xl ml-1 flex flex-row items-center font-semibold">
+        <h1 className="text-pink-800 text-3xl ml-1 flex flex-row items-center font-semibold">
           Hot Picks for you !
         </h1>
       </div>
@@ -74,12 +82,37 @@ const TrendingRecipes = () => {
                 alt={recipe.name}
                 className="w-full h-[150px] object-cover rounded-lg"
               />
-              <h2 className="mt-4 text-xl font-semibold text-[#2E0052]">
+              <div className="">
+              <div>
+              <h2 className="mt-4 text-xl font-semibold text-pink-800">
                 {recipe.name}
               </h2>
+              </div>
+              {/* Heart Button for Like */}
+              <div>
+              {/* <button
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent card click when liking
+                  toggleLike(recipe.id);
+                }}
+                className="text-red-500 text-2xl"
+              >
+                {likedRecipes.includes(recipe.id) ? <FaHeart /> : <FaRegHeart />}
+              </button> */}
+              </div>
+              </div>
               <p className="mt-2 text-sm text-gray-600">{recipe.info}</p>
             </div>
           ))}
+
+          {/* Floating Skip Button */}
+      <button
+        onClick={handleSkip}
+        className="fixed flex flex-row bottom-4 right-4 bg-pink-800 text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-blue-600 transition"
+      >
+        SKIP
+        <FaArrowRight className="mt-1 ml-2" />
+      </button>
        
       </div>
     

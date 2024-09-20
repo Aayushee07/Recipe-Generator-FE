@@ -68,7 +68,7 @@ const Preferences = () => {
         meatType,
         cookingSkill,
       });
-      navigate("/nextPage");
+      navigate("/trending");
     }
   };
 
@@ -80,7 +80,7 @@ const Preferences = () => {
         </div>
       )}
       <div className="flex mt-12 sm:mt-6">
-        <h1 className=" text-[#2E0052] text-3xl ml-1 flex flex-row items-center font-semibold">
+        <h1 className=" text-pink-800 text-3xl ml-1 flex flex-row items-center font-semibold">
           Let's get to know you!
         </h1>
       </div>
@@ -89,7 +89,7 @@ const Preferences = () => {
       <form className="px-6 py-6 bg-white flex flex-col items-start border mt-12 sm:mt-6 border-[#D9D9D9] w-5/6 sm:w-1/3 rounded-xl">
         {currentStep === 1 && (
           <>
-            <p className="text-2xl ml-2">Select Your Dietary Preference</p>
+            <p className="text-2xl ml-2 text-pink-800">Select Your Dietary Preference</p>
             <div className="flex flex-wrap mt-4">
               {dietaryOptions.map((option) => (
                 <div
@@ -97,7 +97,7 @@ const Preferences = () => {
                   onClick={() => handleMultiSelect(option,dietaryPreference, setDietaryPreference)}
                   className={`px-4 py-2 m-2 cursor-pointer rounded-lg border ${
                     dietaryPreference.includes(option)
-                      ? "bg-[#2E0052] text-white"
+                      ? "bg-pink-800 text-white"
                       : "bg-gray-200 text-black"
                   }`}
                 >
@@ -118,7 +118,7 @@ const Preferences = () => {
                   onClick={() => handleSingleSelect(option, setSpiceTolerance)}
                   className={`px-4 py-2 m-2 cursor-pointer rounded-lg border ${
                     spiceTolerance === option
-                      ? "bg-[#2E0052] text-white"
+                      ? "bg-pink-800 text-white"
                       : "bg-gray-200 text-black"
                   }`}
                 >
@@ -139,7 +139,7 @@ const Preferences = () => {
                   onClick={() => handleMultiSelect(option, allergies, setAllergies)}
                   className={`px-4 py-2 m-2 cursor-pointer rounded-lg border ${
                     allergies.includes(option)
-                      ? "bg-[#2E0052] text-white"
+                      ? "bg-pink-800 text-white"
                       : "bg-gray-200 text-black"
                   }`}
                 >
@@ -160,7 +160,7 @@ const Preferences = () => {
                   onClick={() => handleMultiSelect(option, meatType, setMeatType)}
                   className={`px-4 py-2 m-2 cursor-pointer rounded-lg border ${
                     meatType.includes(option)
-                      ? "bg-[#2E0052] text-white"
+                      ? "bg-pink-800 text-white"
                       : "bg-gray-200 text-black"
                   }`}
                 >
@@ -181,7 +181,7 @@ const Preferences = () => {
                   onClick={() => handleSingleSelect(option, setCookingSkill)}
                   className={`px-4 py-2 m-2 cursor-pointer rounded-lg border ${
                     cookingSkill === option
-                      ? "bg-[#2E0052] text-white"
+                      ? "bg-pink-800 text-white"
                       : "bg-gray-200 text-black"
                   }`}
                 >
@@ -194,7 +194,7 @@ const Preferences = () => {
         <button
           type="button"
           onClick={handleNext}
-          className="w-full mb-4 text-white hover:text-[#2E0052] hover:border-[#2E0052] hover:border bg-[#2E0052] hover:bg-white rounded-lg h-12 mt-4"
+          className="w-full mb-4 text-white hover:text-[#2E0052] hover:border-[#2E0052] hover:border bg-pink-800 hover:bg-white rounded-lg h-12 mt-4"
         >
           {currentStep === 5 ? "Done" : "Next"}
         </button>

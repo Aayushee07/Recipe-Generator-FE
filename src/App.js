@@ -12,6 +12,7 @@ import { AuthContext } from "./context/UserContext";
 import Error404 from "./pages/Error404";
 import Preferences from "./pages/Preferences";
 import TrendingRecipes from "./pages/TrendingRecipes";
+import Navbar from "./components/Navbar"
 
 const Privateroute = () => {
   const auth = localStorage.getItem("token");
@@ -23,7 +24,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<TrendingRecipes/>} />
+        <Route path="/trending" element={<TrendingRecipes/>} />
+        <Route path="/" element={<Preferences/>} />
         <Route path="/register" element={<Register />} />
         <Route element={<Privateroute />}>
           <Route path="/home" element={<Home />} />
