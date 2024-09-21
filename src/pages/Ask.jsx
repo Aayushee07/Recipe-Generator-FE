@@ -33,6 +33,18 @@ const filters = {
 
 const Ask = () => {
   const navigate = useNavigate();
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedCategoryTemp, setSelectedCategoryTemp] = useState(null); 
+  const [cartItems, setCartItems] = useState([]);
+  const [randomDiscount, setRandomDiscount] = useState(""); 
+  useEffect(() => {
+    const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    setCartItems(storedCartItems);
+    if (showPopup) {
+      setRandomDiscount(getRandomDiscount());
+    }
+  }, [showPopup]);
+  
 // Function to handle customize button
 const handleSkip = () => {
   navigate("/uploadimage"); 
@@ -45,8 +57,20 @@ const handleSkip = () => {
     skills: null,
     spiceTolerances: null,
   });
-
   const [recipesByCategory, setRecipes] = useState([]);
+
+  const discountOffers = [
+    "Get 10% off on this dish, just for today!",
+    "Limited time offer: 20% discount on your next order!",
+    "Unlock a special 15% discount when you add this to your cart!",
+    "Craving more? Add to cart and enjoy 25% off!",
+    "Hurry! Add to your cart and save 5% on this delicious dish!"
+  ];
+
+  const getRandomDiscount = () => {
+    const randomIndex = Math.floor(Math.random() * discountOffers.length);
+    return discountOffers[randomIndex];
+  };
 
   const [openFilters, setOpenFilters] = useState({
     cuisines: false,
@@ -94,7 +118,8 @@ const handleSkip = () => {
     getRecipes();
   }, [selectedCategory,selectedFilters]);
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
+    setSelectedCategoryTemp(category);
+    setShowPopup(true);
   };
 
   const handleFilterSelect = (filterType, item) => {
@@ -109,6 +134,29 @@ const handleSkip = () => {
       ...prev,
       [filterType]: !prev[filterType],
     }));
+  };
+  const handleAddToCart = () => {
+    // Add logic to pass the category to cart
+    const newCartItems = [...cartItems, selectedCategoryTemp];
+    setCartItems(newCartItems);
+    localStorage.setItem('cartCategory', selectedCategoryTemp); // store the item in local storage for cart
+    console.log(`Added ${selectedCategoryTemp} to cart`);
+
+    // Confirm the selected category and hide the popup
+    setSelectedCategory(selectedCategoryTemp);
+    setShowPopup(false);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    setSelectedCategory(selectedCategoryTemp);
+  };
+
+  const filteredRecipes = recipesByCategory[selectedCategory]?.filter((recipe) =>
+    selectedFilters.cuisines === null || selectedFilters.cuisines === recipe.cuisine
+  );
+  const handleGoToCart = () => {
+    navigate("/cart"); // navigate to cart page when cart button is clicked
   };
 
   return (
@@ -188,6 +236,30 @@ const handleSkip = () => {
       </button>
           </div>
         </>
+      )}
+      {/* Add the popup */}
+      {showPopup && (
+        <div className="fixed p-8 inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h2 className="text-xl font-semibold mb-4">Add to Cart?</h2>
+            <p className="mb-4">Do you want to add {selectedCategoryTemp} to your cart?</p>
+            <p className="text-lg font-semibold text-green-600 mb-4">{randomDiscount}</p> 
+            <div className="flex justify-end">
+              <button
+                onClick={handleAddToCart}
+                className="bg-pink-800 text-white px-4 py-2 rounded mr-2 hover:bg-pink-700"
+              >
+                Add
+              </button>
+              <button
+                onClick={handleClosePopup}
+                className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
       )}
    
     </div>

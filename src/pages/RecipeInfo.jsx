@@ -42,7 +42,7 @@ const RecipeInfo = () => {
   }
 
   return (
-    <div className="mt-8 w-full max-w-3xl mx-auto my-8 p-4">
+    <div className="mt-2 w-full max-w-3xl mx-auto my-8 p-4">
         <h1 className="text-3xl font-semibold text-pink-800 mt-8">{recipe.recipe_name}</h1>
         <p className="mt-4 text-gray-600">{recipe.recipe_description}</p>
       {/* Video Section */}
