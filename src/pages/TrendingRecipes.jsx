@@ -14,7 +14,7 @@ const TrendingRecipes = () => {
   const { preferences } = location.state || {};
   const [recipes, setRecipes] = useState([]);
 
-  console.log(preferences)
+  console.log("preferences",preferences)
 
 
 

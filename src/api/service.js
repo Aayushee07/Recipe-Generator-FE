@@ -58,27 +58,36 @@ export const sendPreferences = async (token, id, preferences) => {
 
 export const fetchRecipe = async (token,id, preferences) => {
   try {
+    console.log("preff",preferences)
     // Construct the query string from preferences
     const params = {};
 
     // Convert dietaryPreference and allergies to comma-separated strings
-    if (preferences.dietaryPreference) {
-      params.dietaryPreference = preferences.dietaryPreference.join(',');
+    if (preferences.meal_type) {
+      params.meal_type = (preferences.meal_type).toLowerCase().join(',');
     }
     if (preferences.spiceTolerance) {
-      params.spiceTolerance = preferences.spiceTolerance;
+      params.spiceTolerance = preferences.spiceTolerance.toLowerCase();
     }
     if (preferences.allergies) {
-      params.allergies = preferences.allergies.join(',');
+      params.allergies = (preferences.allergies).toLowerCase().join(',');
     }
     if (preferences.cookingSkill) {
-      params.cookingSkill = preferences.cookingSkill;
+      params.cookingSkill = preferences.cookingSkill.toLowerCase();
+    }
+    if(preferences.meat_type){
+      params.meat_type = preferences.meat_type.toLowerCase()
+    }
+    if(preferences.cuisine){
+      params.cuisine = preferences.cuisine.toLowerCase()
+    }
+    if(preferences.prep_time_range){
+      params.prep_time_range = preferences.prep_time_range
     }
     console.log('p',params)
 
     // Construct the query string from the params
     const queryParams = new URLSearchParams(params).toString();
-    console.log(preferences)
     console.log('qp',queryParams)
     console.log(`${apiUrl}/api/recipes/filter?user_id=${id}&${queryParams}`)
     

@@ -11,8 +11,8 @@ const RecipeInfo = () => {
 
   return (
     <div className="mt-8 w-full max-w-3xl mx-auto my-8 p-4">
-        <h1 className="text-3xl font-semibold text-pink-800 mt-8">{recipe.name}</h1>
-        <p className="mt-4 text-gray-600">{recipe.info}</p>
+        <h1 className="text-3xl font-semibold text-pink-800 mt-8">{recipe.recipe_name}</h1>
+        <p className="mt-4 text-gray-600">{recipe.recipe_description}</p>
 
         {/* Video Section */}
         <div className="mt-8 w-full max-w-3xl">
@@ -20,7 +20,7 @@ const RecipeInfo = () => {
         <div className="mx-4 mb-4 mt-8 flex-shrink-0 bg-white rounded-lg p-4 ">
             {/* Replace 'VIDEO_ID' with the actual YouTube video ID */}
             <iframe
-            src={`https://www.youtube.com/embed/VIDEO_ID`}
+            src={recipe.recipe_url}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -37,7 +37,7 @@ const RecipeInfo = () => {
   <h2 className="text-2xl font-semibold text-gray-800 mb-4">Ingredients</h2> {/* Ensures title is left-aligned */}
   <div className="mx-4 mb-4 mt-8 flex-shrink-0 bg-white border border-gray-200 rounded-lg p-4 text-left shadow-md text-left">
     <ul className="grid grid-cols-2 gap-x-6 list-disc pl-4">
-      {recipe.ingredients.map((ingredient, index) => (
+      {recipe.recipe_ingredients.map((ingredient, index) => (
         <li key={index} className="text-gray-600">{ingredient}</li>
       ))}
     </ul>
@@ -50,7 +50,7 @@ const RecipeInfo = () => {
         <h2 className="text-2xl font-semibold text-gray-800 mb-4">Instructions</h2>
         <div className="mx-4 mb-4 mt-8 flex-shrink-0 bg-white border border-gray-200 text-justify rounded-lg p-4 shadow-md">
           <ol className="list-decimal list-inside pl-4">
-            {recipe.instructions.map((instruction, index) => (
+            {recipe.recipe_steps.map((instruction, index) => (
               <li key={index} className="text-gray-600 mb-2">{instruction}</li>
             ))}
           </ol>

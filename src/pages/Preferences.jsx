@@ -8,9 +8,9 @@ import { profileUser, sendPreferences } from "../api/service";
 
 // Define options
 const dietaryOptions = [
-  "Vegetarian", "Vegan", "Non-Vegetarian", "Pescatarian", 
+  "Pescatarian", 
   "Gluten-Free", "Keto", "Paleo", "Dairy-Free", 
-  "Paleo-Vegan", "Low-Carb"
+  "Low-Carb"
 ];
 const spiceToleranceOptions = ["Low", "Medium", "High"];
 const allergiesOptions = [
@@ -98,10 +98,10 @@ const Preferences = () => {
 
         const userId = req.data.userValidation._id;
         const preferences = {
-          dietaryPreference,
-          spiceTolerance,
+          "dietary_restrictions":dietaryPreference,
+          "spice_tolerance":spiceTolerance,
           allergies,
-          cookingSkill,
+          "skill_level":cookingSkill,
         };
   
         sendPreferences(auth, userId, preferences)
