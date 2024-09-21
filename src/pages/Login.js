@@ -63,7 +63,7 @@ const Login = () => {
       <div className="flex mt-16 md:mt-12">
         {/* <img src={logo} alt="logo" className="inline w-10 h-10" /> */}
         <h1 className=" text-[#2E0052] text-3xl ml-1 flex flex-row items-center font-semibold">
-          Memories
+          De'Licious
         </h1>
       </div>
       <form
@@ -108,23 +108,23 @@ const Login = () => {
           Continue
         </button>
         <h1 className="text-sm text-left mx-1">
-          By continuing, you agree to Memories privacy notice and conditions of
+          By continuing, you agree to De'Licious privacy notice and conditions of
           use.
         </h1>
       </form>
       <div className="mt-8 text-xs md:text-sm sm:w-1/2 lg:w-1/3 flex items-center w-full md:px-1 px-9">
         <hr className="border-t w-full border-gray-300 flex-grow" />
-        <span className=" text-gray-500 w-full">New to Memories?</span>
+        <span className=" text-gray-500 w-full">New to De'Licious?</span>
         <hr className="border-t w-full border-gray-300 flex-grow" />
       </div>
       <button
         onClick={() => navigate("/register")}
         className="w-4/5 lg:w-1/3 sm:w-1/2 mb-4 text-[#2E0052] hover:text-white border-gray-700 border bg-white hover:bg-pink-800 rounded-lg h-12 mt-8"
       >
-        Create your Memories account
+        Create your De'Licious account
       </button>
       <div className="absolute bottom-0 bg-pink-800 flex flex-col items-center w-full h-10 pt-2">
-        <span className="text-white">Memories | All rights reserved</span>
+        <span className="text-white">De'Licious | All rights reserved</span>
       </div>
     </div>
   );

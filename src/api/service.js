@@ -64,22 +64,22 @@ export const fetchRecipe = async (token,id, preferences) => {
 
     // Convert dietaryPreference and allergies to comma-separated strings
     if (preferences.meal_type) {
-      params.meal_type = (preferences.meal_type).toLowerCase().join(',');
+      params.meal_type = (preferences.meal_type);
     }
     if (preferences.spiceTolerance) {
-      params.spiceTolerance = preferences.spiceTolerance.toLowerCase();
+      params.spiceTolerance = preferences.spiceTolerance;
     }
     if (preferences.allergies) {
       params.allergies = preferences.allergies;
     }
     if (preferences.cookingSkill) {
-      params.cookingSkill = preferences.cookingSkill.toLowerCase();
+      params.cookingSkill = preferences.cookingSkill;
     }
     if(preferences.meat_type){
-      params.meat_type = preferences.meat_type.toLowerCase()
+      params.meat_type = preferences.meat_type
     }
     if(preferences.cuisine){
-      params.cuisine = preferences.cuisine.toLowerCase()
+      params.cuisine = preferences.cuisine
     }
     if(preferences.prep_time_range){
       params.prep_time_range = preferences.prep_time_range
