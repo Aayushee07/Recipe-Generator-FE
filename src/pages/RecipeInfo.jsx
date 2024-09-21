@@ -1,9 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { HeartIcon, ShareIcon } from '@heroicons/react/solid'; // Using ShareIcon from Heroicons
 
 const RecipeInfo = () => {
   const location = useLocation();
-  const { recipe } = location.state || {}; // Destructure the recipe object
+  const { recipe } = location.state || {};
+  
+  const [likeCount, setLikeCount] = useState(0); // State to track the like count
+
+  useEffect(() => {
+    // Any additional effect logic if required
+  }, []);
+
+  const handleLike = () => {
+    setLikeCount(prevCount => prevCount + 1); // Increment the count
+  };
+
+  const handleShare = async () => {
+    // Check if the Web Share API is supported
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: recipe?.name || 'Recipe',
+          text: recipe?.info || 'Check out this recipe!',
+          url: window.location.href, // Current page URL
+        });
+        console.log('Recipe shared successfully!');
+      } catch (err) {
+        console.error('Error sharing the recipe:', err);
+      }
+    } else {
+      // Fallback: copy the URL to clipboard
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('URL copied to clipboard!');
+      });
+    }
+  };
 
   if (!recipe) {
     return <p>No recipe data found!</p>;
@@ -24,11 +56,33 @@ const RecipeInfo = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             className="w-full h-full rounded-lg"
-            ></iframe>
+          ></iframe>
         </div>
-        </div>
+      </div>
 
-        {/* Pink Divider */}
+      <div className='mx-auto'>
+        {/* Heart Icon and Share Button Section */}
+        <div className="flex items-center mt-4 space-x-4">
+          <div className="flex items-center">
+            <HeartIcon
+              className="h-6 w-6 text-red-500 cursor-pointer"
+              onClick={handleLike}
+            />
+            <span className="ml-2 text-gray-600">{likeCount} Likes</span>
+          </div>
+
+          {/* Share Button */}
+          <div className="flex items-center">
+            <ShareIcon
+              className="h-6 w-6 text-blue-500 cursor-pointer"
+              onClick={handleShare}
+            />
+            <span className="ml-2 text-gray-600">Share</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Pink Divider */}
       <div className="border-t-2 border-pink-100 mt-8"></div>
 
         {/* Ingredients Section */}
@@ -114,7 +168,6 @@ const RecipeInfo = () => {
         </div>
         <p className="small-info text-sm mt-4">*Percent Daily Values are based on a 2000 calorie diet</p>
       </section>
-
     </div>
   );
 };
