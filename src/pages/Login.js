@@ -35,7 +35,7 @@ const Login = () => {
           } else {
             localStorage.setItem("token", req.data.token);
             setUserAuth(true);
-            navigate("/profile");
+            navigate("/preference");
           }
         })
         .catch((err) => console.log(err));
@@ -47,7 +47,7 @@ const Login = () => {
 
   useEffect(() => {
     if (auth) {
-      navigate("/profile");
+      navigate("/preference");
     } else {
       setUserAuth(false);
     }
@@ -103,7 +103,7 @@ const Login = () => {
         />
         <button
           type="submit"
-          className="w-full mb-4 text-white hover:text-[#2E0052] hover:border-[#2E0052] hover:border bg-[#2E0052] hover:bg-white rounded-lg h-12 mt-8"
+          className="w-full mb-4 text-white hover:border-[#2E0052] hover:border bg-pink-800 hover:bg-white rounded-lg h-12 mt-8"
         >
           Continue
         </button>
@@ -119,11 +119,11 @@ const Login = () => {
       </div>
       <button
         onClick={() => navigate("/register")}
-        className="w-4/5 lg:w-1/3 sm:w-1/2 mb-4 text-[#2E0052] hover:text-white border-gray-700 border bg-white hover:bg-[#2E0052] rounded-lg h-12 mt-8"
+        className="w-4/5 lg:w-1/3 sm:w-1/2 mb-4 text-[#2E0052] hover:text-white border-gray-700 border bg-white hover:bg-pink-800 rounded-lg h-12 mt-8"
       >
         Create your Memories account
       </button>
-      <div className="absolute bottom-0 bg-[#2E0052] flex flex-col items-center w-full h-10 pt-2">
+      <div className="absolute bottom-0 bg-pink-800 flex flex-col items-center w-full h-10 pt-2">
         <span className="text-white">Memories | All rights reserved</span>
       </div>
     </div>

@@ -22,7 +22,7 @@ const TrendingRecipes = () => {
 
     // Function to handle skip button
     const handleSkip = () => {
-        navigate("/home"); // Navigate to the home page or another desired route
+        navigate("/ask"); // Navigate to the home page or another desired route
       };
 
    // Navigate to individual recipe page

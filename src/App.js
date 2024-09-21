@@ -13,6 +13,7 @@ import Error404 from "./pages/Error404";
 import Preferences from "./pages/Preferences";
 import TrendingRecipes from "./pages/TrendingRecipes";
 import Navbar from "./components/Navbar"
+import Ask from "./pages/Ask";
 import RecipeInfo from './pages/RecipeInfo';
 
 
@@ -26,12 +27,14 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/trending" element={<TrendingRecipes/>} />
         <Route path="/recipeinfo" element={<RecipeInfo/>} />
-        <Route path="/" element={<Preferences/>} />
+        <Route path="/" element={<Login/>} />
         <Route path="/register" element={<Register />} />
         <Route element={<Privateroute />}>
           <Route path="/home" element={<Home />} />
+          <Route path="/trending" element={<TrendingRecipes/>} />
+          <Route path="/preference" element={<Preferences/>} />
+          <Route path="/ask" element={<Ask />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/logout" element={<Logout />} />
         </Route>

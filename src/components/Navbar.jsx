@@ -18,7 +18,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="fixed w-full h-20  shadow-xl bg-[#ecf0f3] text-[#1f2937] tracking-wide mb-24">
+    <div className="fixed w-full h-20  shadow-xl bg-white text-pink-800 tracking-wide mb-24">
       <div className="flex justify-between items-center w-full h-full px-7 2xl:px-16">
         <h1 className="text-4xl sm:text-2xl md:text-4xl cursor-pointer pl-0 font-bold">
           Memories

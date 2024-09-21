@@ -3,6 +3,7 @@ import logo from "../assets/logoMusicart.png";
 import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
+import { FaArrowRight } from "react-icons/fa"; // Import heart and arrow icons
 
 // Define options
 const dietaryOptions = [
@@ -24,7 +25,7 @@ const Preferences = () => {
   const [dietaryPreference, setDietaryPreference] = useState(""); // Single selection for dietary
   const [spiceTolerance, setSpiceTolerance] = useState(""); // Single selection for spice tolerance
   const [allergies, setAllergies] = useState([]); // Multiple selection for allergies
-  const [meatType, setMeatType] = useState([]); // Multiple selection for meat type
+  // const [meatType, setMeatType] = useState([]); // Multiple selection for meat type
   const [cookingSkill, setCookingSkill] = useState(""); // Single selection for cooking skill level
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -51,23 +52,43 @@ const Preferences = () => {
     }
   };
 
+  // Function to handle skip button
+  const handleSkip = () => {
+    navigate("/ask"); // Navigate to the home page or another desired route
+  };
+
+
+  // const handleNext = () => {
+  //   if (currentStep === 1 && dietaryPreference) {
+  //     setCurrentStep(2);
+  //   } else if (currentStep === 2 && spiceTolerance) {
+  //     setCurrentStep(3);
+  //   } else if (currentStep === 3 && allergies.length > 0) {
+  //     setCurrentStep(4);
+  //   } else if (currentStep === 4 && meatType.length > 0) {
+  //     setCurrentStep(5);
+  //   } else if (currentStep === 5 && cookingSkill) {
+
+  //     // fetchRecipes(token,
+  //     //   {
+  //     //    meatType:"Chicken"
+  //     //   }
+  //     // ).then()
+  //     // console.log({
+  //     //   dietaryPreference,
+  //     //   spiceTolerance,
+  //     //   allergies,
+  //     //   meatType,
+  //     //   cookingSkill,
+  //     // });
+  //     navigate("/trending");
+  //   }
+  // };
+
   const handleNext = () => {
-    if (currentStep === 1 && dietaryPreference) {
-      setCurrentStep(2);
-    } else if (currentStep === 2 && spiceTolerance) {
-      setCurrentStep(3);
-    } else if (currentStep === 3 && allergies.length > 0) {
-      setCurrentStep(4);
-    } else if (currentStep === 4 && meatType.length > 0) {
-      setCurrentStep(5);
-    } else if (currentStep === 5 && cookingSkill) {
-      console.log({
-        dietaryPreference,
-        spiceTolerance,
-        allergies,
-        meatType,
-        cookingSkill,
-      });
+    if (currentStep < 4) {
+      setCurrentStep(currentStep + 1);
+    } else {
       navigate("/trending");
     }
   };
@@ -85,7 +106,7 @@ const Preferences = () => {
         </h1>
       </div>
 
-      {/* Conditional rendering based on the current step */}
+     
       <form className="px-6 py-6 bg-white flex flex-col items-start border mt-12 sm:mt-6 border-[#D9D9D9] w-5/6 sm:w-1/3 rounded-xl">
         {currentStep === 1 && (
           <>
@@ -150,7 +171,7 @@ const Preferences = () => {
           </>
         )}
 
-        {currentStep === 4 && (
+        {/* {currentStep === 4 && (
           <>
             <p className="text-2xl ml-2">Select Your Meat Preference</p>
             <div className="flex flex-wrap mt-4">
@@ -169,9 +190,9 @@ const Preferences = () => {
               ))}
             </div>
           </>
-        )}
+        )} */}
 
-        {currentStep === 5 && (
+        {currentStep === 4 && (
           <>
             <p className="text-2xl ml-2">Select Your Cooking Skill Level</p>
             <div className="flex flex-wrap mt-4">
@@ -194,12 +215,20 @@ const Preferences = () => {
         <button
           type="button"
           onClick={handleNext}
-          className="w-full mb-4 text-white hover:text-[#2E0052] hover:border-[#2E0052] hover:border bg-pink-800 hover:bg-white rounded-lg h-12 mt-4"
+          className="w-full mb-4 text-white hover:border-[#2E0052] hover:border bg-pink-800 rounded-lg h-12 mt-4"
         >
           {currentStep === 5 ? "Done" : "Next"}
         </button>
 
       </form>
+       {/* Floating Skip Button */}
+       <button
+        onClick={handleSkip}
+        className="fixed flex flex-row bottom-4 right-4 bg-pink-800 text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-blue-600 transition"
+      >
+        SKIP
+        <FaArrowRight className="mt-1 ml-2" />
+      </button>
     </div>
   );
 };

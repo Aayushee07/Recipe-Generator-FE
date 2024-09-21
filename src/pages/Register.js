@@ -158,7 +158,7 @@ const Register = () => {
         />
         <button
           type="submit"
-          className="w-full mb-4 text-white hover:text-[#2E0052] hover:border-[#2E0052] hover:border bg-[#2E0052] hover:bg-white rounded-lg h-12 mt-4"
+          className="w-full mb-4 text-white hover:text-[#2E0052] hover:border-[#2E0052] hover:border bg-pink-800 hover:bg-white rounded-lg h-12 mt-4"
         >
           Continue
         </button>
@@ -176,7 +176,7 @@ const Register = () => {
           Sign in
         </span>
       </p>
-      <div className="fixed bottom-0  bg-[#2E0052] flex flex-col items-center w-full h-10 pt-2">
+      <div className="fixed bottom-0  bg-pink-800 flex flex-col items-center w-full h-10 pt-2">
         <span className="text-white">Memories | All rights reserved</span>
       </div>
     </div>

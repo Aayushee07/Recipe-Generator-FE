@@ -22,7 +22,6 @@ export const loginUser = async (user) => {
     throw new Error("Server Error");
   }
 };
-
 // API call for profile
 export const profileUser = async (token) => {
   try {
@@ -36,3 +35,16 @@ export const profileUser = async (token) => {
     throw new Error("Server Error");
   }
 };
+
+// export const fetchRecipe = async (token) => {
+//   try {
+//     // Return the response
+//     return await Axios.get(apiUrl + "/api/recipes/filter", {
+//       headers: {
+//         authorization: token,
+//       },
+//     });
+//   } catch (error) {
+//     throw new Error("Server Error");
+//   }
+// };
