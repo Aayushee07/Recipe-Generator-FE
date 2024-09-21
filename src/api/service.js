@@ -36,15 +36,61 @@ export const profileUser = async (token) => {
   }
 };
 
-// export const fetchRecipe = async (token) => {
-//   try {
-//     // Return the response
-//     return await Axios.get(apiUrl + "/api/recipes/filter", {
-//       headers: {
-//         authorization: token,
-//       },
-//     });
-//   } catch (error) {
-//     throw new Error("Server Error");
-//   }
-// };
+export const sendPreferences = async (token, id, preferences) => {
+  try {
+    // Make the PUT request to update user preferences
+    const response = await Axios.put(
+      `${apiUrl}/api/users/${id}`,
+      preferences,  // Pass preferences in the body
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    
+    return response; // Return the API response
+  } catch (error) {
+    console.error("Error sending preferences:", error);
+    throw new Error("Server Error"); // Handle server errors
+  }
+};
+
+export const fetchRecipe = async (token,id, preferences) => {
+  try {
+    // Construct the query string from preferences
+    const params = {};
+
+    // Convert dietaryPreference and allergies to comma-separated strings
+    if (preferences.dietaryPreference) {
+      params.dietaryPreference = preferences.dietaryPreference.join(',');
+    }
+    if (preferences.spiceTolerance) {
+      params.spiceTolerance = preferences.spiceTolerance;
+    }
+    if (preferences.allergies) {
+      params.allergies = preferences.allergies.join(',');
+    }
+    if (preferences.cookingSkill) {
+      params.cookingSkill = preferences.cookingSkill;
+    }
+    console.log('p',params)
+
+    // Construct the query string from the params
+    const queryParams = new URLSearchParams(params).toString();
+    console.log(preferences)
+    console.log('qp',queryParams)
+    console.log(`${apiUrl}/api/recipes/filter?user_id=${id}&${queryParams}`)
+    
+    const response = await Axios.get(`${apiUrl}/api/recipes/filter?user_id=${id}&${queryParams}`, {
+      headers: { authorization: token },
+    });
+
+    console.log('resp',response.data)
+    
+    return response.data; // Return only the data
+  } catch (error) {
+    console.error(error); // Log the actual error for debugging
+    throw new Error("Server Error");
+  }
+};
