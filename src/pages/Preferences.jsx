@@ -20,6 +20,8 @@ const allergiesOptions = [
 ];
 const meatOptions = ["Chicken", "Beef", "Pork", "Lamb", "Turkey", "Duck"];
 const cookingSkillLevels = ["Beginner", "Intermediate", "Advanced"];
+const language = ["English", "Hindi"];
+
 
 const Preferences = () => {
   const [loader, setLoader] = useState(false);
@@ -29,6 +31,8 @@ const Preferences = () => {
   // const [meatType, setMeatType] = useState([]); // Multiple selection for meat type
   const [cookingSkill, setCookingSkill] = useState(""); // Single selection for cooking skill level
   const [currentStep, setCurrentStep] = useState(1);
+  const [languagePreference, setLanguagePreference] = useState("");
+
 
   const navigate = useNavigate();
   let auth = localStorage.getItem("token");
@@ -88,7 +92,7 @@ const Preferences = () => {
   // };
 
   const handleNext = () => {
-    if (currentStep < 4) {
+    if (currentStep < 5) {
       setCurrentStep(currentStep + 1);
     } else {
       profileUser(auth).then((req, res) => {
@@ -97,11 +101,19 @@ const Preferences = () => {
         console.log('aaa',req.data.userValidation._id)
 
         const userId = req.data.userValidation._id;
+
+         // Map the language selection to the correct database value
+      const languageMap = {
+        English: 'en',
+        Hindi: 'hi',
+      };
+
         const preferences = {
           "dietary_restrictions":dietaryPreference,
           "spice_tolerance":spiceTolerance,
           allergies,
           "skill_level":cookingSkill,
+          "language":languageMap[languagePreference]
         };
   
         sendPreferences(auth, userId, preferences)
@@ -237,12 +249,34 @@ const Preferences = () => {
             </div>
           </>
         )}
+
+{currentStep === 5 && (
+          <>
+            <p className="text-2xl ml-2">Select Your Language Preference</p>
+            <div className="flex flex-wrap mt-4">
+              {language.map((option) => (
+                <div
+                  key={option}
+                  onClick={() => handleSingleSelect(option, setLanguagePreference)}
+                  className={`px-4 py-2 m-2 cursor-pointer rounded-lg border ${
+                    languagePreference === option
+                      ? "bg-pink-800 text-white"
+                      : "bg-gray-200 text-black"
+                  }`}
+                >
+                  {option}
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
         <button
           type="button"
           onClick={handleNext}
           className="w-full mb-4 text-white hover:border-[#2E0052] hover:border bg-pink-800 rounded-lg h-12 mt-4"
         >
-          {currentStep === 4 ? "Done" : "Next"}
+          {currentStep === 5 ? "Done" : "Next"}
         </button>
 
       </form>

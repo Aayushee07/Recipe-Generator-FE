@@ -70,7 +70,7 @@ export const fetchRecipe = async (token,id, preferences) => {
       params.spiceTolerance = preferences.spiceTolerance.toLowerCase();
     }
     if (preferences.allergies) {
-      params.allergies = (preferences.allergies).toLowerCase().join(',');
+      params.allergies = preferences.allergies;
     }
     if (preferences.cookingSkill) {
       params.cookingSkill = preferences.cookingSkill.toLowerCase();
