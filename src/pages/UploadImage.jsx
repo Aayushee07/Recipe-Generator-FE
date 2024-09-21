@@ -5,6 +5,11 @@ const UploadImage = () => {
   const [uploadImage, setUploadImage] = useState(false); // Toggle between manual input and camera
   const [capturedImage, setCapturedImage] = useState(null); // Store the captured image
 
+  // State variables for recipe details
+  const [ingredients, setIngredients] = useState('');
+  const [servingSize, setServingSize] = useState('');
+  const [dietType, setDietType] = useState('');
+
   const handleToggleChange = () => {
     setUploadImage(!uploadImage); // Toggle the image upload state
     setCapturedImage(null); // Reset captured image when toggling
@@ -12,6 +17,13 @@ const UploadImage = () => {
 
   const handleCapture = (image) => {
     setCapturedImage(image); // Set the captured image from the webcam
+  };
+
+  const handleSubmit = () => {
+    console.log('Ingredients:', ingredients);
+    console.log('Serving Size:', servingSize);
+    console.log('Diet Type:', dietType);
+    // Additional form submission logic can be added here
   };
 
   return (
@@ -41,7 +53,7 @@ const UploadImage = () => {
             <CustomWebcam onCapture={handleCapture} />
           )}
 
-        <div className="text-center text-gray-500 my-4">or</div>
+          <div className="text-center text-gray-500 my-4">or</div>
 
           {/* Optionally Upload from Gallery */}
           <div className="flex flex-col items-center mt-8">
@@ -55,7 +67,10 @@ const UploadImage = () => {
           </div>
 
           {/* Submit Button */}
-          <button className="w-full mt-8 p-2 bg-pink-800 text-white rounded-lg hover:bg-pink-600">
+          <button
+            onClick={handleSubmit}
+            className="w-full mt-8 p-2 bg-pink-800 text-white rounded-lg hover:bg-pink-600"
+          >
             Submit
           </button>
         </div>
@@ -72,6 +87,8 @@ const UploadImage = () => {
             <input
               type="text"
               id="ingredients"
+              value={ingredients}
+              onChange={(e) => setIngredients(e.target.value)}
               placeholder="E.g., Tomatoes, Chicken, Rice"
               className="w-full p-2 border border-gray-300 rounded-lg"
             />
@@ -85,6 +102,8 @@ const UploadImage = () => {
             <input
               type="number"
               id="serving-size"
+              value={servingSize}
+              onChange={(e) => setServingSize(e.target.value)}
               placeholder="Enter serving size"
               className="w-full p-2 border border-gray-300 rounded-lg"
             />
@@ -95,7 +114,12 @@ const UploadImage = () => {
             <label htmlFor="diet" className="block text-gray-700 font-semibold mb-2">
               Diet Type
             </label>
-            <select id="diet" className="w-full p-2 border border-gray-300 rounded-lg">
+            <select
+              id="diet"
+              value={dietType}
+              onChange={(e) => setDietType(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-lg"
+            >
               <option value="">Select diet type</option>
               <option value="vegan">Vegan</option>
               <option value="vegetarian">Vegetarian</option>
@@ -106,7 +130,10 @@ const UploadImage = () => {
           </div>
 
           {/* Submit Button */}
-          <button className="w-full mt-8 p-2 bg-pink-800 text-white rounded-lg hover:bg-pink-600">
+          <button
+            onClick={handleSubmit}
+            className="w-full mt-8 p-2 bg-pink-800 text-white rounded-lg hover:bg-pink-600"
+          >
             Submit
           </button>
         </div>

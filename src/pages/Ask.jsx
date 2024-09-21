@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import RecipeCarousel from "../components/RecipeList";
+import { useNavigate } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa"; // Import heart and arrow icons
 
 const categories = [
   { name: "Chicken", imageUrl: "https://example.com/chicken.jpg" },
@@ -47,6 +49,11 @@ const filters = {
 };
 
 const Ask = () => {
+  const navigate = useNavigate();
+// Function to handle customize button
+const handleSkip = () => {
+  navigate("/uploadimage"); 
+};
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState({
     cuisines: null,
@@ -154,9 +161,18 @@ const Ask = () => {
                 recipesByCategory={{ [selectedCategory]: filteredRecipes }}
               />
             </div>
+            {/* Floating Customize Button */}
+      <button
+        onClick={handleSkip}
+        className="fixed flex flex-row bottom-4 right-4 bg-pink-800 text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-blue-600 transition"
+      >
+        Customize
+        <FaArrowRight className="mt-1 ml-2" />
+      </button>
           </div>
         </>
       )}
+   
     </div>
   );
 };
