@@ -73,7 +73,7 @@ const Register = () => {
       <div className="flex mt-12 sm:mt-6">
         {/* <img src={logo} alt="logo" className="inline w-10 h-10" /> */}
         <h1 className=" text-[#2E0052] text-3xl ml-1 flex flex-row items-center font-semibold">
-          Memories
+          De'Licious
         </h1>
       </div>
       <form
@@ -163,7 +163,7 @@ const Register = () => {
           Continue
         </button>
         <h1 className="text-xs text-left mx-1">
-          By continuing, you agree to Memories privacy notice and conditions of
+          By continuing, you agree to De'Licious privacy notice and conditions of
           use.
         </h1>
       </form>
@@ -177,7 +177,7 @@ const Register = () => {
         </span>
       </p>
       <div className="fixed bottom-0  bg-pink-800 flex flex-col items-center w-full h-10 pt-2">
-        <span className="text-white">Memories | All rights reserved</span>
+        <span className="text-white">De'Licious | All rights reserved</span>
       </div>
     </div>
   );
