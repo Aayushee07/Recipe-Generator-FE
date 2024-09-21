@@ -4,12 +4,13 @@ import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
 import { FaArrowRight } from "react-icons/fa"; // Import heart and arrow icons
+import { profileUser, sendPreferences } from "../api/service";
 
 // Define options
 const dietaryOptions = [
-  "Vegetarian", "Vegan", "Non-Vegetarian", "Pescatarian", 
+  "Pescatarian", 
   "Gluten-Free", "Keto", "Paleo", "Dairy-Free", 
-  "Paleo-Vegan", "Low-Carb"
+  "Low-Carb"
 ];
 const spiceToleranceOptions = ["Low", "Medium", "High"];
 const allergiesOptions = [
@@ -30,7 +31,8 @@ const Preferences = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
   const navigate = useNavigate();
-  const auth = localStorage.getItem("token");
+  let auth = localStorage.getItem("token");
+ 
 
   useEffect(() => {
     if (!auth) {
@@ -89,6 +91,29 @@ const Preferences = () => {
     if (currentStep < 4) {
       setCurrentStep(currentStep + 1);
     } else {
+      profileUser(auth).then((req, res) => {
+        console.log('req',req.data);
+
+        console.log('aaa',req.data.userValidation._id)
+
+        const userId = req.data.userValidation._id;
+        const preferences = {
+          "dietary_restrictions":dietaryPreference,
+          "spice_tolerance":spiceTolerance,
+          allergies,
+          "skill_level":cookingSkill,
+        };
+  
+        sendPreferences(auth, userId, preferences)
+          .then((response) => {
+            console.log('Preferences updated:', response);
+            navigate("/trending", { state: { preferences } });
+          })
+          .catch((err) => {
+            console.error('Error updating preferences:', err);
+          });
+      });
+
       navigate("/trending");
     }
   };
@@ -217,7 +242,7 @@ const Preferences = () => {
           onClick={handleNext}
           className="w-full mb-4 text-white hover:border-[#2E0052] hover:border bg-pink-800 rounded-lg h-12 mt-4"
         >
-          {currentStep === 5 ? "Done" : "Next"}
+          {currentStep === 4 ? "Done" : "Next"}
         </button>
 
       </form>

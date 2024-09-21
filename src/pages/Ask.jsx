@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import RecipeCarousel from "../components/RecipeList";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa"; // Import heart and arrow icons
@@ -8,6 +8,8 @@ import muttonImage from "../assets/Mutton-raw.jpeg";
 import eggsImage from "../assets/Eggs-raw.avif";
 import readyToCookImage from "../assets/ready-to-cook.webp";
 import coldCutsImage from "../assets/cold-cuts.jpg";
+import { fetchRecipe } from "../api/service";
+import { profileUser } from "../api/service";
 
 
 const categories = [
@@ -19,33 +21,7 @@ const categories = [
   { name: "Cold Cuts", imageUrl: coldCutsImage },
 ];
 
-const recipesByCategory = {
-  Chicken: [
-    { id: 1, name: "Grilled Chicken", image: "https://via.placeholder.com/150", info: "A delicious grilled chicken recipe.",cuisine:"Indian" },
-    { id: 2, name: "Chicken Biryani", image: "https://via.placeholder.com/150", info: "A spicy chicken biryani.",cuisine:"Chinese" },
-    { id: 3, name: "Chicken Biryani", image: "https://via.placeholder.com/150", info: "A spicy chicken biryani.",cuisine:"Indian" },
-  ],
-  "Fish & Seafood": [
-    { id: 3, name: "Grilled Salmon", image: "https://via.placeholder.com/150", info: "A tasty grilled salmon with lemon." },
-    { id: 4, name: "Shrimp Tacos", image: "https://via.placeholder.com/150", info: "Mexican shrimp tacos with avocado salsa." },
-  ],
-  Mutton: [
-    { id: 5, name: "Mutton Curry", image: "https://via.placeholder.com/150", info: "A spicy Indian-style mutton curry." },
-    { id: 6, name: "Mutton Kebabs", image: "https://via.placeholder.com/150", info: "Juicy mutton kebabs, grilled to perfection." },
-  ],
-  Eggs: [
-    { id: 7, name: "Scrambled Eggs", image: "https://via.placeholder.com/150", info: "Soft and fluffy scrambled eggs." },
-    { id: 8, name: "Eggs Benedict", image: "https://via.placeholder.com/150", info: "A classic eggs benedict with hollandaise sauce." },
-  ],
-  "Ready to Cook": [
-    { id: 9, name: "Frozen Pizza", image: "https://via.placeholder.com/150", info: "A delicious frozen pizza ready to bake." },
-    { id: 10, name: "Frozen Lasagna", image: "https://via.placeholder.com/150", info: "A quick and easy frozen lasagna." },
-  ],
-  "Cold Cuts": [
-    { id: 11, name: "Turkey Sandwich", image: "https://via.placeholder.com/150", info: "A turkey sandwich with fresh veggies." },
-    { id: 12, name: "Ham & Cheese", image: "https://via.placeholder.com/150", info: "Classic ham and cheese sandwich." },
-  ],
-};
+
 
 const filters = {
   cuisines: ["Indian", "Italian", "Chinese", "Mexican", "American"],
@@ -70,6 +46,8 @@ const handleSkip = () => {
     spiceTolerances: null,
   });
 
+  const [recipesByCategory, setRecipes] = useState([]);
+
   const [openFilters, setOpenFilters] = useState({
     cuisines: false,
     mealTypes: false,
@@ -78,6 +56,43 @@ const handleSkip = () => {
     spiceTolerances: false,
   });
 
+  useEffect(() => {
+    const getRecipes = async () => {
+      const preferences = {
+        "meat_type" : selectedCategory,
+        "meal_type" : selectedFilters['mealTypes'],
+        "cuisine" : selectedFilters['cuisines'],
+        "prep_time_range" : selectedFilters['cookingTimes']
+      }
+      console.log("HIIIIIIII")
+      console.log(preferences)
+      try {
+        let auth = localStorage.getItem("token");
+
+        profileUser(auth).then((req, response) => {
+  
+        const userId = req.data.userValidation._id;
+
+        fetchRecipe(auth, userId, preferences)
+        .then((response) => {
+        console.log(response)
+        setRecipes(response.recipes); // Set the fetched recipes to state
+        })
+        .catch((err) => {
+          console.error('Error fetching preferences:', err);
+        });
+
+        console.log(response)
+
+        })
+
+      } catch (error) {
+        console.error("Error fetching recipes:", error);
+      }
+    };
+
+    getRecipes();
+  }, [selectedCategory,selectedFilters]);
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
@@ -95,10 +110,6 @@ const handleSkip = () => {
       [filterType]: !prev[filterType],
     }));
   };
-
-  const filteredRecipes = recipesByCategory[selectedCategory]?.filter((recipe) =>
-    selectedFilters.cuisines === null || selectedFilters.cuisines === recipe.cuisine
-  );
 
   return (
     <div className="flex flex-col items-center">
@@ -164,8 +175,7 @@ const handleSkip = () => {
 
             <div className="w-80">
               <RecipeCarousel
-                selectedCategory={selectedCategory}
-                recipesByCategory={{ [selectedCategory]: filteredRecipes }}
+                recipesByCategory={recipesByCategory }
               />
             </div>
             {/* Floating Customize Button */}

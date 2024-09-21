@@ -2,7 +2,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const RecipeCarousel = ({ selectedCategory, recipesByCategory }) => {
+const RecipeCarousel = ({ recipesByCategory }) => {
   const settings = {
     // dots: true, // Show dots for navigation
     infinite: true, // Infinite loop
@@ -22,21 +22,22 @@ const RecipeCarousel = ({ selectedCategory, recipesByCategory }) => {
   return (
     <div className="w-5/6 sm:w-1/2 mx-auto bg-white">
       <Slider {...settings}>
-        {recipesByCategory[selectedCategory].map((recipe, index) => (
+        {recipesByCategory.map((recipe, index) => (
           <div key={index} className="p-4">
             <div
               className="flex flex-col items-center p-4 border rounded-lg shadow-md hover:shadow-lg cursor-pointer"
-              onClick={() => console.log(`Open recipe page for: ${recipe.id}`)}
+              onClick={() => console.log(`Open recipe page for: ${recipe._id}`)}
             >
               <img
-                src={recipe.image}
+                src={recipe.recipe_img}
                 alt={recipe.name}
                 className="w-24 h-24 object-cover rounded-full mb-4"
               />
               <h2 className="mt-4 text-xl font-semibold text-pink-800">
-                {recipe.name}
+                {recipe.recipe_name}
               </h2>
-              <p className="text-sm text-gray-600 mt-2">{recipe.info}</p>
+              <p className="text-sm text-gray-600 mt-2">{recipe.recipe_description
+              }</p>
             </div>
           </div>
         ))}

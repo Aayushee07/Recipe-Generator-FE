@@ -31,7 +31,6 @@ function App() {
         <Route path="/recipeinfo" element={<RecipeInfo/>} />
         <Route path="/" element={<Login/>} />
         <Route path="/uploadimage" element={<UploadImage/>} />
-        <Route path="/" element={<Preferences/>} />
         <Route path="/register" element={<Register />} />
         <Route element={<Privateroute />}>
           <Route path="/home" element={<Home />} />
