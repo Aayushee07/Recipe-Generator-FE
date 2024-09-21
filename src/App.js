@@ -15,6 +15,7 @@ import TrendingRecipes from "./pages/TrendingRecipes";
 import Navbar from "./components/Navbar"
 import Ask from "./pages/Ask";
 import RecipeInfo from './pages/RecipeInfo';
+import UploadImage from './pages/UploadImage';
 
 
 const Privateroute = () => {
@@ -29,6 +30,8 @@ function App() {
       <Routes>
         <Route path="/recipeinfo" element={<RecipeInfo/>} />
         <Route path="/" element={<Login/>} />
+        <Route path="/uploadimage" element={<UploadImage/>} />
+        <Route path="/" element={<Preferences/>} />
         <Route path="/register" element={<Register />} />
         <Route element={<Privateroute />}>
           <Route path="/home" element={<Home />} />
