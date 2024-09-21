@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import RecipeCarousel from "../components/RecipeList";
+import chickenImage from "../assets/Chicken-raw.jpg";
+import fishImage from "../assets/fish-and-seafood.jpg";
+import muttonImage from "../assets/Mutton-raw.jpeg";
+import eggsImage from "../assets/Eggs-raw.avif";
+import readyToCookImage from "../assets/ready-to-cook.webp";
+import coldCutsImage from "../assets/cold-cuts.jpg";
 
 const categories = [
-  { name: "Chicken", imageUrl: "https://example.com/chicken.jpg" },
-  { name: "Fish & Seafood", imageUrl: "https://example.com/fish.jpg" },
-  { name: "Mutton", imageUrl: "https://example.com/mutton.jpg" },
-  { name: "Eggs", imageUrl: "https://example.com/eggs.jpg" },
-  { name: "Ready to Cook", imageUrl: "https://example.com/readytocook.jpg" },
-  { name: "Cold Cuts", imageUrl: "https://example.com/coldcuts.jpg" },
+  { name: "Chicken", imageUrl: chickenImage },
+  { name: "Fish & Seafood", imageUrl: fishImage },
+  { name: "Mutton", imageUrl: muttonImage },
+  { name: "Eggs", imageUrl: eggsImage },
+  { name: "Ready to Cook", imageUrl: readyToCookImage },
+  { name: "Cold Cuts", imageUrl: coldCutsImage },
 ];
 
 const recipesByCategory = {
