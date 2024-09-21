@@ -12,15 +12,14 @@ const RecipeInfo = () => {
   return (
     <div className="mt-8 w-full max-w-3xl mx-auto my-8 p-4">
         <h1 className="text-3xl font-semibold text-pink-800 mt-8">{recipe.recipe_name}</h1>
-      <p className="mt-4 text-gray-600">{recipe.recipe_description}</p>
-
+        <p className="mt-4 text-gray-600">{recipe.recipe_description}</p>
       {/* Video Section */}
       <div className="mt-8 w-full max-w-3xl">
         <h2 className="text-2xl font-semibold text-gray-800 mb-4">Video Tutorial</h2>
         <div className="mx-4 mb-4 mt-8 flex-shrink-0 bg-white rounded-lg p-4 ">
-          {/* Replace 'VIDEO_ID' with the actual YouTube video ID */}
-          <iframe
-            src={`https://www.youtube.com/embed/VIDEO_ID`}
+            {/* Replace 'VIDEO_ID' with the actual YouTube video ID */}
+            <iframe
+            src={recipe.recipe_url}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -32,17 +31,17 @@ const RecipeInfo = () => {
         {/* Pink Divider */}
       <div className="border-t-2 border-pink-100 mt-8"></div>
 
-      {/* Ingredients Section */}
-      <div className="mt-8 w-full max-w-3xl">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Ingredients</h2>
-        <div className="mx-4 mb-4 mt-8 flex-shrink-0 bg-white border border-gray-200 rounded-lg p-4 text-left shadow-md text-left">
-          <ul className="grid grid-cols-2 gap-x-6 list-disc pl-4">
-            {recipe.recipe_ingredients.map((ingredient, index) => (
-              <li key={index} className="text-gray-600">{ingredient}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
+        {/* Ingredients Section */}
+<div className="mt-8 w-full max-w-3xl">
+  <h2 className="text-2xl font-semibold text-gray-800 mb-4">Ingredients</h2> {/* Ensures title is left-aligned */}
+  <div className="mx-4 mb-4 mt-8 flex-shrink-0 bg-white border border-gray-200 rounded-lg p-4 text-left shadow-md text-left">
+    <ul className="grid grid-cols-2 gap-x-6 list-disc pl-4">
+      {recipe.recipe_ingredients.map((ingredient, index) => (
+        <li key={index} className="text-gray-600">{ingredient}</li>
+      ))}
+    </ul>
+  </div>
+</div>
 
       {/* Instructions Section */}
       <div className="mt-8 w-full max-w-3xl">
